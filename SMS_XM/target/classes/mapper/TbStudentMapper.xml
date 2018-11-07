@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.TbStudentMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.domain.TbStudent" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="tb_class_id" property="tbClassId" jdbcType="VARCHAR" />
+    <result column="tb_class_name" property="tbClassName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="stats" property="stats" jdbcType="INTEGER" />
+    <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="class_open_date" property="classOpenDate" jdbcType="VARCHAR" />
+    <result column="normal_graduate_date" property="normalGraduateDate" jdbcType="VARCHAR" />
+    <result column="actual_graduate_date" property="actualGraduateDate" jdbcType="VARCHAR" />
+    <result column="idcard_address" property="idcardAddress" jdbcType="VARCHAR" />
+    <result column="actual_adderss" property="actualAdderss" jdbcType="VARCHAR" />
+    <result column="family_phone" property="familyPhone" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="graduate_school" property="graduateSchool" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="graduate_date" property="graduateDate" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="student_no" property="studentNo" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="VARCHAR" />
+    <result column="usable_flag" property="usableFlag" jdbcType="INTEGER" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sid, student_id, student_name, tb_class_id, tb_class_name, sex, stats, idcard_no, 
+    mobile_no, class_open_date, normal_graduate_date, actual_graduate_date, idcard_address, 
+    actual_adderss, family_phone, QQ, education, graduate_school, major, graduate_date, 
+    age, student_no, last_update_time, usable_flag, delete_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.domain.TbStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_student
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_student
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.itheima.domain.TbStudentExample" >
+    delete from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.itheima.domain.TbStudent" >
+    insert into tb_student (sid, student_id, student_name, 
+      tb_class_id, tb_class_name, sex, 
+      stats, idcard_no, mobile_no, 
+      class_open_date, normal_graduate_date, actual_graduate_date, 
+      idcard_address, actual_adderss, family_phone, 
+      QQ, education, graduate_school, 
+      major, graduate_date, age, 
+      student_no, last_update_time, usable_flag, 
+      delete_flag)
+    values (#{sid,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, 
+      #{tbClassId,jdbcType=VARCHAR}, #{tbClassName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{stats,jdbcType=INTEGER}, #{idcardNo,jdbcType=VARCHAR}, #{mobileNo,jdbcType=VARCHAR}, 
+      #{classOpenDate,jdbcType=VARCHAR}, #{normalGraduateDate,jdbcType=VARCHAR}, #{actualGraduateDate,jdbcType=VARCHAR}, 
+      #{idcardAddress,jdbcType=VARCHAR}, #{actualAdderss,jdbcType=VARCHAR}, #{familyPhone,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{graduateDate,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{studentNo,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=VARCHAR}, #{usableFlag,jdbcType=INTEGER}, 
+      #{deleteFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.domain.TbStudent" >
+    insert into tb_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="tbClassId != null" >
+        tb_class_id,
+      </if>
+      <if test="tbClassName != null" >
+        tb_class_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="stats != null" >
+        stats,
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no,
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no,
+      </if>
+      <if test="classOpenDate != null" >
+        class_open_date,
+      </if>
+      <if test="normalGraduateDate != null" >
+        normal_graduate_date,
+      </if>
+      <if test="actualGraduateDate != null" >
+        actual_graduate_date,
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address,
+      </if>
+      <if test="actualAdderss != null" >
+        actual_adderss,
+      </if>
+      <if test="familyPhone != null" >
+        family_phone,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="graduateSchool != null" >
+        graduate_school,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="graduateDate != null" >
+        graduate_date,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="studentNo != null" >
+        student_no,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="usableFlag != null" >
+        usable_flag,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbClassId != null" >
+        #{tbClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="tbClassName != null" >
+        #{tbClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="stats != null" >
+        #{stats,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNo != null" >
+        #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="classOpenDate != null" >
+        #{classOpenDate,jdbcType=VARCHAR},
+      </if>
+      <if test="normalGraduateDate != null" >
+        #{normalGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actualGraduateDate != null" >
+        #{actualGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddress != null" >
+        #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="actualAdderss != null" >
+        #{actualAdderss,jdbcType=VARCHAR},
+      </if>
+      <if test="familyPhone != null" >
+        #{familyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null" >
+        #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null" >
+        #{graduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="studentNo != null" >
+        #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="usableFlag != null" >
+        #{usableFlag,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.itheima.domain.TbStudentExample" resultType="java.lang.Integer" >
+    select count(*) from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_student
+    <set >
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbClassId != null" >
+        tb_class_id = #{record.tbClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbClassName != null" >
+        tb_class_name = #{record.tbClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.stats != null" >
+        stats = #{record.stats,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardNo != null" >
+        idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobileNo != null" >
+        mobile_no = #{record.mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classOpenDate != null" >
+        class_open_date = #{record.classOpenDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normalGraduateDate != null" >
+        normal_graduate_date = #{record.normalGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualGraduateDate != null" >
+        actual_graduate_date = #{record.actualGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardAddress != null" >
+        idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualAdderss != null" >
+        actual_adderss = #{record.actualAdderss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyPhone != null" >
+        family_phone = #{record.familyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        QQ = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null" >
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduateSchool != null" >
+        graduate_school = #{record.graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null" >
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduateDate != null" >
+        graduate_date = #{record.graduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentNo != null" >
+        student_no = #{record.studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usableFlag != null" >
+        usable_flag = #{record.usableFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_student
+    set sid = #{record.sid,jdbcType=INTEGER},
+      student_id = #{record.studentId,jdbcType=INTEGER},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      tb_class_id = #{record.tbClassId,jdbcType=VARCHAR},
+      tb_class_name = #{record.tbClassName,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      stats = #{record.stats,jdbcType=INTEGER},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      mobile_no = #{record.mobileNo,jdbcType=VARCHAR},
+      class_open_date = #{record.classOpenDate,jdbcType=VARCHAR},
+      normal_graduate_date = #{record.normalGraduateDate,jdbcType=VARCHAR},
+      actual_graduate_date = #{record.actualGraduateDate,jdbcType=VARCHAR},
+      idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      actual_adderss = #{record.actualAdderss,jdbcType=VARCHAR},
+      family_phone = #{record.familyPhone,jdbcType=VARCHAR},
+      QQ = #{record.qq,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      graduate_school = #{record.graduateSchool,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      graduate_date = #{record.graduateDate,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      student_no = #{record.studentNo,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=VARCHAR},
+      usable_flag = #{record.usableFlag,jdbcType=INTEGER},
+      delete_flag = #{record.deleteFlag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.domain.TbStudent" >
+    update tb_student
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbClassId != null" >
+        tb_class_id = #{tbClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="tbClassName != null" >
+        tb_class_name = #{tbClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="stats != null" >
+        stats = #{stats,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="classOpenDate != null" >
+        class_open_date = #{classOpenDate,jdbcType=VARCHAR},
+      </if>
+      <if test="normalGraduateDate != null" >
+        normal_graduate_date = #{normalGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="actualGraduateDate != null" >
+        actual_graduate_date = #{actualGraduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="actualAdderss != null" >
+        actual_adderss = #{actualAdderss,jdbcType=VARCHAR},
+      </if>
+      <if test="familyPhone != null" >
+        family_phone = #{familyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null" >
+        graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateDate != null" >
+        graduate_date = #{graduateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="studentNo != null" >
+        student_no = #{studentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="usableFlag != null" >
+        usable_flag = #{usableFlag,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.domain.TbStudent" >
+    update tb_student
+    set student_id = #{studentId,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      tb_class_id = #{tbClassId,jdbcType=VARCHAR},
+      tb_class_name = #{tbClassName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      stats = #{stats,jdbcType=INTEGER},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      class_open_date = #{classOpenDate,jdbcType=VARCHAR},
+      normal_graduate_date = #{normalGraduateDate,jdbcType=VARCHAR},
+      actual_graduate_date = #{actualGraduateDate,jdbcType=VARCHAR},
+      idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      actual_adderss = #{actualAdderss,jdbcType=VARCHAR},
+      family_phone = #{familyPhone,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      graduate_date = #{graduateDate,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      student_no = #{studentNo,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=VARCHAR},
+      usable_flag = #{usableFlag,jdbcType=INTEGER},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>
