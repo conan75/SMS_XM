@@ -156,7 +156,7 @@ public class StudentInfoController {
                         continue;
                     }
                     row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-                    if (StringUtils.isBlank(row.getCell(0).getStringCellValue())) {
+                    if (row.getCell(0)==null||StringUtils.isBlank(row.getCell(0).getStringCellValue())) {
                         continue;
                     }
                     TbStudent student = new TbStudent();
